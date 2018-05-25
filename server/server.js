@@ -49,8 +49,33 @@ app.get('/todos/:id', (req, res) => {
         console.log(`Todo query with id ${id} found`);
         res.status(200).send({todo});
     }).catch((e) => {
-        console.log(`Toto query with id ${id} failed`, e);
+        console.log(`Todo query with id ${id} failed`, e);
         res.status(400).send();
+    });
+});
+
+app.delete('/todos/:id', (req, res) => {
+    var id = req.params.id;
+
+    console.log(`Trying to remove todo with id ${id}`);
+
+    if (!ObjectID.isValid(id)) {
+        console.log(`Id ${id} is invalid`);
+        res.status(404).send();
+        return;
+    }
+
+    Todo.findByIdAndRemove(id).then((todo) => {
+        if (!todo) {
+            console.log(`Todo with id ${id} not found`);
+            res.status(404).send();
+            return;
+        }
+        console.log('Removal successful');
+        res.status(200).send(todo);
+    }).catch((e) => {
+        console.log('Todo removal failure');
+        res.status(400).send(e);
     });
 });
 
