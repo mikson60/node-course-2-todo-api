@@ -46,7 +46,7 @@ app.get('/todos/:id', (req, res) => {
             return;
         }
         console.log(`Todo query with id ${id} found`);
-        res.status(200).send(todo);
+        res.status(200).send({todo});
     }).catch((e) => {
         console.log(`Toto query with id ${id} failed`, e);
         res.status(400).send();
