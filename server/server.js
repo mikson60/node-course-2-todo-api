@@ -72,7 +72,7 @@ app.delete('/todos/:id', (req, res) => {
             return;
         }
         console.log('Removal successful');
-        res.status(200).send(todo);
+        res.status(200).send({todo});
     }).catch((e) => {
         console.log('Todo removal failure');
         res.status(400).send(e);
