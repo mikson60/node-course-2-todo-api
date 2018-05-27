@@ -48,7 +48,7 @@ UserSchema.methods.generateAuthToken = function() {
     user.tokens = user.tokens.concat([{access, token}]);
 
     return user.save().then(() => {
-        return token;
+        return token; // this return means we can use the token in the promise .then() after user.save() returns
     });
 };
 
@@ -69,6 +69,30 @@ UserSchema.statics.findByToken = function(token) {
         _id: decoded._id,
         'tokens.token': token,
         'tokens.access': 'auth'
+    });
+};
+
+UserSchema.statics.findByCredentials = function (email, password) {
+    var User = this;
+
+    return User.findOne({email}).then((user) => {
+        if (!user) {
+            return Promise.reject();
+        }
+
+        return new Promise((resolve, reject) => {
+            bcrypt.compare(password, user.password, (err, success) => {
+                if (err) {
+                    console.log('Authentication failure', res);
+                    return Promise.reject();
+                }
+                if (success) {
+                    resolve(user);
+                } else {
+                    reject();
+                }
+            });
+        });
     });
 };
 
