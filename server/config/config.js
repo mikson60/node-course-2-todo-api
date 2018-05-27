@@ -11,11 +11,12 @@ if (env === 'development' || env === 'test') {
         process.env[key] = envConfig[key];
     });
 } else if (env === 'production') {
-    var envConfig = config[env];
+    // var envConfig = config[env];
 
-    Object.keys(envConfig).forEach((key) => {
-        process.env[key] = envConfig[key];
-    });
+    // Object.keys(envConfig).forEach((key) => {
+    //     process.env[key] = envConfig[key];
+    // });
+    process.env.MONGODB_URI = 'mongodb://admin:admin@ds235180.mlab.com:35180/todo-app-db';
 }
 
 
