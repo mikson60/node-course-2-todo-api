@@ -12,7 +12,7 @@ if (env === 'development' || env === 'test') {
 }
 
 // if (env === 'production') {
-//     process.env.MONGODB_URI = 'mongodb://admin:admin@ds235180.mlab.com:35180/todo-app-db';
+//     process.env.MONGODB_URI =
 // } else if (env === 'development') {
 //     process.env.PORT = 3000;
 //     process.env.MONGODB_URI = 'mongodb://localhost:27017/TodoApp';
